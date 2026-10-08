@@ -1,0 +1,36 @@
+{
+  "$schema": "https://go.kicad.org/pcm/schemas/v2",
+  "name": "PCBA Partner Fabrication Toolkit",
+  "description": "One-click Gerber/drill ZIP, BOM, CPL and a pre-flight check report for PCB assembly.",
+  "description_full": "Exports locally from the saved KiCad project: Gerber and Excellon drill ZIP, grouped BOM with normalized Manufacturer/MPN fields, pick-and-place CPL in mm, and a basic pre-flight report for missing MPNs, missing footprints and BOM/placement mismatches. No upload, network access or commercial-service connection is performed. The vendor-neutral output can be used with any assembler.\n\nValidated on KiCad 10.0.6 for macOS. Uses the legacy SWIG action-plugin runtime and kicad-cli. Only KiCad 10.0 is currently declared compatible.",
+  "identifier": "com.pcbapartner.fabrication-toolkit",
+  "type": "plugin",
+  "author": {
+    "name": "PCBA Partner",
+    "contact": {
+      "email": "hello@pcbapartner.com"
+    }
+  },
+  "license": "GPL-3.0-or-later",
+  "resources": {
+    "homepage": "https://github.com/13712831373g-alt/pcba-fabrication-toolkit",
+    "issues": "https://github.com/13712831373g-alt/pcba-fabrication-toolkit/issues"
+  },
+  "tags": [
+    "fabrication",
+    "bom",
+    "cpl",
+    "gerber",
+    "assembly",
+    "pcba"
+  ],
+  "versions": [
+    {
+      "version": "0.1.0",
+      "status": "testing",
+      "kicad_version": "10.0",
+      "kicad_version_max": "10.0",
+      "runtime": "swig"
+    }
+  ]
+}
