@@ -13,8 +13,8 @@
   },
   "license": "GPL-3.0-or-later",
   "resources": {
-    "homepage": "https://github.com/13712831373g-alt/pcba-fabrication-toolkit",
-    "issues": "https://github.com/13712831373g-alt/pcba-fabrication-toolkit/issues"
+    "homepage": "https://github.com/pcbapartner/pcba-fabrication-toolkit",
+    "issues": "https://github.com/pcbapartner/pcba-fabrication-toolkit/issues"
   },
   "tags": [
     "fabrication",

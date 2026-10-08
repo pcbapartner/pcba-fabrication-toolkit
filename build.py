@@ -17,7 +17,7 @@ import zipfile
 import zlib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-REPO_RELEASE_URL = "https://github.com/13712831373g-alt/pcba-fabrication-toolkit/releases/download/v{v}/{f}"
+REPO_RELEASE_URL = "https://github.com/pcbapartner/pcba-fabrication-toolkit/releases/download/v{v}/{f}"
 
 
 def png(path, size=48):

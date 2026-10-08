@@ -69,4 +69,10 @@ The menu-triggered workflow and exported files are verified for the original loc
 
 ## Publication status
 
-The public source repository is `13712831373g-alt/pcba-fabrication-toolkit`. The exact v0.1.0 release asset upload and public download verification are separate from source publication. The official KiCad merge request has not been submitted; official acceptance is unverified.
+The current source target is `pcbapartner/pcba-fabrication-toolkit`. Version 0.1.0 was originally published and anonymously download-verified under `13712831373g-alt/pcba-fabrication-toolkit` at commit `dfad891aaab095475809fae179539f7dc28c6c0d`. The official KiCad merge request has not been submitted; official acceptance is unverified.
+
+## Repository URL maintenance
+
+The current-branch metadata homepage, issue tracker and future-build release URL use the brand organization path. Version stays 0.1.0. This documentation and metadata change does not rerun or broaden any of the earlier CLI, GUI, operating-system or KiCad-version checks. The exporter, ActionPlugin, icons and license files are unchanged.
+
+The frozen v0.1.0 tag remains at `dfad891aaab095475809fae179539f7dc28c6c0d`; its original installation/source ZIPs and SHA-256 files are not rebuilt or overwritten. The original public owner `13712831373g-alt/pcba-fabrication-toolkit` and its verification records are retained as historical provenance. Actual transfer identity, old/new URL redirects and anonymous asset downloads must be recorded separately after they have been observed; this working-branch text is not a transfer-verification result. No new release, human technical review or official KiCad MR is claimed.

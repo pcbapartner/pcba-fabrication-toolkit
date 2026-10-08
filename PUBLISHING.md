@@ -1,6 +1,6 @@
 # Release and KiCad PCM submission
 
-Prepared on 2026-10-07. The public source repository is `13712831373g-alt/pcba-fabrication-toolkit`. The v0.1.0 release asset upload is a separate publication step; the metadata download URL becomes usable only after the exact asset is published. No official KiCad merge request has been submitted.
+Prepared on 2026-10-07. The current source target is `pcbapartner/pcba-fabrication-toolkit`. Version 0.1.0 was published and anonymously download-verified under `13712831373g-alt/pcba-fabrication-toolkit`; its tag and four release assets are frozen. This working-branch change updates canonical ownership URLs only and does not publish a new version. No official KiCad merge request has been submitted.
 
 ## Current release artifacts
 
@@ -14,6 +14,8 @@ The package identifier uses PCBA Partner's domain namespace. A maintainer who co
 
 ## Public source and testing release
 
+**Historical command example below; do not rerun it for v0.1.0.** Updating current-branch URLs must not replace the published ZIPs, move the v0.1.0 tag, or upload a rebuilt 0.1.0 asset. A future package with changed embedded metadata needs its own separately authorized version and validation. No 0.1.1 publication is part of this URL-maintenance change.
+
 For subsequent releases, a maintainer authenticated in GitHub CLI can run these commands from a clone of the public source repository after reviewing `VALIDATION.md`. A new repository is not required.
 
 ```bash
@@ -25,6 +27,8 @@ gh release create v0.1.0 dist/pcbapartner-fabrication-toolkit-0.1.0.zip dist/pcb
 After upload, download the actual public asset and compare its hash with the local release; verify that the source's issues tracker is enabled and the URL works without authentication. Do not submit the PCM merge request while its `download_url` returns 404.
 
 ## Official PCM submission
+
+**On hold for a technical human maintainer.** The steps and prepared text below are retained historical, tool-assisted material, not human-authored or human-reviewed contribution prose. Do not use them to open a merge request before a maintainer understands and reviews the contribution and provides their own text as required. The KiCad tool-generated-content policy scope for metadata-only submissions still requires confirmation; no official MR is authorized by this repository URL change.
 
 The [official KiCad addons guide](https://dev-docs.kicad.org/en/addons/index.html) requires public downloads, SHA-256 metadata, GPL-compatible open-source code, English metadata and a source host with issue tracking. New packages should use schema v2; this package does. The [upstream metadata repository](https://gitlab.com/kicad/addons/metadata) accepts the package folder by merge request, rather than a merge request to the generated public repository.
 

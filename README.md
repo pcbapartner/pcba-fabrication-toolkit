@@ -17,7 +17,10 @@ The exporter makes no network requests, uploads no design data and opens no comm
 
 Version **0.1.0**, testing release. Validated with **KiCad 10.0.6 on macOS**, including real PCM installation and a successful PCB Editor menu export. The GUI-produced BOM, CPL and report match the CLI reference; the manufacturing ZIP contains all 16 expected files for the four-layer fixture. This package declares compatibility with KiCad **10.0 only** and uses the legacy SWIG action-plugin runtime plus `kicad-cli`. KiCad 8, 9 and other operating systems have not been validated.
 
-Source and issue tracking are hosted at [13712831373g-alt/pcba-fabrication-toolkit](https://github.com/13712831373g-alt/pcba-fabrication-toolkit). Release assets are provided through the repository's Releases page when available. This plugin has not been accepted into KiCad's official repository. See [PUBLISHING.md](PUBLISHING.md) for release and submission steps, and [VALIDATION.md](VALIDATION.md) for actual checks.
+Source and issue tracking are hosted at [pcbapartner/pcba-fabrication-toolkit](https://github.com/pcbapartner/pcba-fabrication-toolkit). Release assets are provided through the repository's Releases page when available. This plugin has not been accepted into KiCad's official repository. See [PUBLISHING.md](PUBLISHING.md) for release and submission steps, and [VALIDATION.md](VALIDATION.md) for actual checks.
+
+
+Repository URL maintenance on the current branch keeps version 0.1.0 and exporter behavior unchanged. The published v0.1.0 tag, installation ZIP, source ZIP and SHA-256 assets retain their original bytes; their embedded historical URLs are not rewritten. This working-branch update is not a new package release or official KiCad acceptance.
 
 ## Install
 
@@ -56,4 +59,4 @@ The report is a basic consistency check. It does not validate closed outlines, e
 
 ## License
 
-GPL-3.0-or-later. The full license is in `LICENSE` and is included as `plugins/LICENSE` in the installation ZIP. Maintained by PCBA Partner. Source contributions and [issue reports](https://github.com/13712831373g-alt/pcba-fabrication-toolkit/issues) are welcome.
+GPL-3.0-or-later. The full license is in `LICENSE` and is included as `plugins/LICENSE` in the installation ZIP. Maintained by PCBA Partner. Source contributions and [issue reports](https://github.com/pcbapartner/pcba-fabrication-toolkit/issues) are welcome.
