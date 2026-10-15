@@ -75,6 +75,10 @@ def main():
 
     sha = hashlib.sha256(open(zpath, "rb").read()).hexdigest()
     sub = dict(meta)
+    # Only the official repository's legacy v1 label is mapped. Actual source
+    # and installed-package metadata retain GPL-3.0-or-later; disclose this.
+    if sub.get("license") == "GPL-3.0-or-later":
+        sub["license"] = "GPL-3.0"
     sub["versions"] = [dict(meta["versions"][0],
                             download_url=REPO_RELEASE_URL.format(v=ver, f=fname),
                             download_sha256=sha,

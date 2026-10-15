@@ -1,77 +1,33 @@
-# Release and KiCad PCM submission
+# Release and official-submission procedure for 0.1.1
 
-Prepared on 2026-10-07. The current source target is `pcbapartner/pcba-fabrication-toolkit`. Version 0.1.0 was published and anonymously download-verified under `13712831373g-alt/pcba-fabrication-toolkit`; its tag and four release assets are frozen. This working-branch change updates canonical ownership URLs only and does not publish a new version. No official KiCad merge request has been submitted.
+Version 0.1.1 is a testing release for macOS / KiCad 10.0 using the SWIG runtime. Repository: https://github.com/pcbapartner/pcba-fabrication-toolkit. These instructions and source were AI-assisted. They do not claim a release URL is already downloadable, an independent human review is complete, or KiCad has accepted the plugin. Actual availability and public-download evidence are recorded by the GitHub release operation.
 
-## Current release artifacts
+## Release artifacts and source
 
-- Installation ZIP: `dist/pcbapartner-fabrication-toolkit-0.1.0.zip`
-- SHA-256 file: `dist/pcbapartner-fabrication-toolkit-0.1.0.zip.sha256`
-- Official-repository folder: `pcm-submission/packages/com.pcbapartner.fabrication-toolkit/`
-- Release text: `RELEASE_NOTES.md`
-- Source: `plugins/`, `resources/`, `metadata.json`, `build.py`, `LICENSE`
+- pcbapartner-fabrication-toolkit-0.1.1.zip and its .sha256: six-member installation package, full GPL license and icons.
+- pcba-fabrication-toolkit-0.1.1-source.zip and its .sha256: audited 15-file source tree, tests and read-only CI workflow; no fixtures, work files or credentials.
+- pcm-submission/packages/com.pcbapartner.fabrication-toolkit/metadata.json and icon.png: official-submission material, kept separate from installed metadata. Actual source/package GPL-3.0-or-later is preserved; the legacy outer v1 label maps to GPL-3.0 and must remain disclosed.
+- VALIDATION.md records exact 0.1.1 offline PCM/menu/toolbar proof, local 9/9 tests, real 0.1.1 three-OS standard-library CI with native skips, and local schemas. This does not establish official network CI or online-index installation.
 
-The package identifier uses PCBA Partner's domain namespace. A maintainer who controls that domain and the public source repository should make the submission. If the repository owner/name differs from the planned path, update `metadata.json` → `resources.homepage` and `build.py` → `REPO_RELEASE_URL`, then rebuild and repeat the hash/schema checks before publishing.
+The build script creates the installation ZIP, checksum and submission folder. The source archive uses the source-file allowlist. Source ZIP hashes are recorded outside the archive to avoid a circular checksum. Both metadata and the core VERSION constant must remain 0.1.1 for these asset names.
 
-## Public source and testing release
+## GitHub testing-release steps
 
-**Historical command example below; do not rerun it for v0.1.0.** Updating current-branch URLs must not replace the published ZIPs, move the v0.1.0 tag, or upload a rebuilt 0.1.0 asset. A future package with changed embedded metadata needs its own separately authorized version and validation. No 0.1.1 publication is part of this URL-maintenance change.
+1. Review the exact source changes, metadata, docs and licenses at the intended commit. Keep tests/workflow and the explicit macos declaration consistent with the verified scope. AI assistance must not be mislabeled as a person's independent review.
+2. Retain the exact-package GUI record for installation ZIP SHA d3532161b5ad8bd442e2c163ff8a0b2d8bda310fdba2680a3b376e2d4afa8da0. It passed formal-identifier upgrade plus menu and toolbar on the saved Sheetfile-regression fixture. Any change to installed members requires new byte/hash checks and an appropriate retest.
+3. Verify the intended source commit's CI and final four asset hashes. Each hosted job's absent-native skip stays a skip, not a native pass. Inspect source and installation archives for the declared version, correct layout and absence of customer data.
+4. Check public v0.1.1/tag/asset-name availability immediately before creation. Once authorized, create a new pre-release at the intended source commit and upload the four exact assets. Do not move v0.1.0 or overwrite its frozen assets.
+5. Download the actual public assets anonymously; verify bytes/SHA/size, source members, tag commit and installed/submission metadata. Record the observed URLs and results. A prepared URL or a successful upload is not anonymous download proof.
 
-For subsequent releases, a maintainer authenticated in GitHub CLI can run these commands from a clone of the public source repository after reviewing `VALIDATION.md`. A new repository is not required.
+Expected installation path: https://github.com/pcbapartner/pcba-fabrication-toolkit/releases/download/v0.1.1/pcbapartner-fabrication-toolkit-0.1.1.zip
+Expected source path: https://github.com/pcbapartner/pcba-fabrication-toolkit/releases/download/v0.1.1/pcba-fabrication-toolkit-0.1.1-source.zip
 
-```bash
-gh auth status
-python3 build.py
-gh release create v0.1.0 dist/pcbapartner-fabrication-toolkit-0.1.0.zip dist/pcbapartner-fabrication-toolkit-0.1.0.zip.sha256 --title "Fabrication Toolkit 0.1.0" --notes-file RELEASE_NOTES.md --prerelease
-```
+## Official KiCad submission is a separate decision
 
-After upload, download the actual public asset and compare its hash with the local release; verify that the source's issues tracker is enabled and the URL works without authentication. Do not submit the PCM merge request while its `download_url` returns 404.
+Do not open an official MR before the session's hold is lifted. KiCad's addons schema allows a company/team author; maintainer is optional when the same as author. The checked rules did not require separately hiring a person with a particular professional title or certification. The real responsibility condition still matters: a company person must actually review, understand and take responsibility, answer review questions and personally write official commit/MR/comment text. Non-English original wording may be translated. Do not label generated prose as human-written.
 
-## Official PCM submission
+Follow the applicable [tool-generated-content policy](https://dev-docs.kicad.org/en/rules-guidelines/tool-generated-content/), including meaningful tool/testing disclosure and human review/approval before agent activity in KiCad spaces. The checked policy is not a blanket ban on all independent plugin AI code, and no independent-plugin exemption is assumed. If policy scope for metadata-only text remains unclear, resolve it with upstream without pretending approval has been obtained.
 
-**On hold for a technical human maintainer.** The steps and prepared text below are retained historical, tool-assisted material, not human-authored or human-reviewed contribution prose. Do not use them to open a merge request before a maintainer understands and reviews the contribution and provides their own text as required. The KiCad tool-generated-content policy scope for metadata-only submissions still requires confirmation; no official MR is authorized by this repository URL change.
+Recheck the [addons guide](https://dev-docs.kicad.org/en/addons/) and [metadata repository](https://gitlab.com/kicad/addons/metadata) at submission time. Only packages/com.pcbapartner.fabrication-toolkit/metadata.json and icon.png belong in that contribution. Run actual fork validate/build, test the resulting temporary PCM repository and obtain upstream review. Local schemas, company CI and offline installation do not substitute for those recommended steps. Never send customer designs or fixtures as metadata-submission contents.
 
-The [official KiCad addons guide](https://dev-docs.kicad.org/en/addons/index.html) requires public downloads, SHA-256 metadata, GPL-compatible open-source code, English metadata and a source host with issue tracking. New packages should use schema v2; this package does. The [upstream metadata repository](https://gitlab.com/kicad/addons/metadata) accepts the package folder by merge request, rather than a merge request to the generated public repository.
-
-1. Fork `kicad/addons/metadata` under the maintainer's GitLab account.
-2. Clone the fork, create a branch, and copy `pcm-submission/packages/com.pcbapartner.fabrication-toolkit/` into its `packages/` directory.
-3. Commit and push the folder. Open a merge request targeting `kicad/addons/metadata` → `main`.
-4. Use the description below, confirm upstream CI passes, and answer the maintainer's review.
-
-Prepared merge-request title:
-
-> Add PCBA Partner Fabrication Toolkit 0.1.0
-
-Prepared description:
-
-```text
-Adds a GPL-3.0-or-later local fabrication exporter for KiCad 10.0 (testing release, legacy SWIG runtime).
-
-The plugin exports multi-layer Gerbers and Excellon drills in a ZIP, a normalized grouped BOM, a both-side mm placement CSV and a basic consistency report. It performs no uploads, network requests or commercial-service connection. Output is vendor-neutral.
-
-Validated using KiCad 10.0.6 on macOS: real PCM installation and a successful PCB Editor menu export, plus two- and four-copper-layer CLI exports, DNP exclusion, bottom-side and through-hole placement, mixed MPN aliases, manufacturer-aware grouping, missing schematic/outline and output failure handling. Metadata validates against KiCad's shipped PCM v2 JSON schema. The archive includes the GPL license and 64 px/24 px icons.
-
-The download_sha256, download_size and install_size in this submission match the uploaded ZIP. See the source repository's VALIDATION.md for the exact GUI validation status and limitations.
-```
-
-Verify the public-download claim only after the release asset is available. The real GUI check is complete and recorded in VALIDATION.md. Official inclusion is subject to upstream review; a built package is not an accepted submission.
-
-## If a commercial connection is added later
-
-The [commercial-services policy](https://dev-docs.kicad.org/en/addons/index.html#commercial-services) requires the provider to contact KiCad before submitting a plugin that links to or connects to a commercial service. The FAQ allows an exporter that only formats data without connecting to the provider. This build removed the previous quote-page prompt, browser launch and RFQ report links.
-
-A future commercial version should first send this draft through the contact link shown in that official policy; the exact contact address should be copied from the live page. No such message has been sent.
-
-```text
-Subject: Commercial plugin discussion — PCBA Partner KiCad fabrication toolkit
-
-Hello KiCad team,
-
-I represent PCBA Partner and would like to discuss your commercial plugin process before proposing a version of our fabrication toolkit that connects users to our quoting service.
-
-Our current GPL-3.0-or-later plugin exports vendor-neutral fabrication and assembly files locally, without uploads or service connections. A future version may offer an explicit user-initiated link or upload to our quoting service.
-
-Could you advise on the agreement and review process required for that commercial version? We can provide source code, a data-flow description, privacy terms and maintainer contact information.
-
-[Maintainer's real name, role and company email]
-[Public source URL, once published]
-```
+The current exporter formats data locally without a commercial-service connection. If a future version adds such a connection, follow KiCad's then-current commercial-services process. Branding alone is not treated as proof that a supplier contract is required.
