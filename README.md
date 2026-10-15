@@ -15,16 +15,21 @@ The exporter makes no network requests, uploads no design data and opens no comm
 
 ## Status and compatibility
 
-Version **0.1.0**, testing release. Validated with **KiCad 10.0.6 on macOS**, including real PCM installation and a successful PCB Editor menu export. The GUI-produced BOM, CPL and report match the CLI reference; the manufacturing ZIP contains all 16 expected files for the four-layer fixture. This package declares compatibility with KiCad **10.0 only** and uses the legacy SWIG action-plugin runtime plus `kicad-cli`. KiCad 8, 9 and other operating systems have not been validated.
+Version **0.1.1**, testing release for **macOS / KiCad 10.0**, using the legacy SWIG action-plugin runtime plus `kicad-cli`. Native validation used KiCad **10.0.6**. Windows/Linux native support, KiCad 8/9 support and official KiCad acceptance are not claimed. Release availability and downloaded-asset verification are tracked separately on the repository's [Releases page](https://github.com/pcbapartner/pcba-fabrication-toolkit/releases).
 
-Source and issue tracking are hosted at [pcbapartner/pcba-fabrication-toolkit](https://github.com/pcbapartner/pcba-fabrication-toolkit). Release assets are provided through the repository's Releases page when available. This plugin has not been accepted into KiCad's official repository. See [PUBLISHING.md](PUBLISHING.md) for release and submission steps, and [VALIDATION.md](VALIDATION.md) for actual checks.
+The repaired exporter distinguishes actual child-sheet `Sheetfile` properties from ordinary symbol fields, protects prior output names and recovers this attempt's files after a final publication error. Recovery is not a crash-proof multi-file transaction; a failed rollback lists remaining files for manual cleanup. The generated official legacy license label maps to GPL-3.0, while source and installed-package metadata remain GPL-3.0-or-later.
 
+The exact 0.1.1 ZIP was installed through real PCM **Install from File** under the formal package identifier. In a fresh PCB Editor process, the single menu entry and single toolbar button both exported the synthetic regression fixture successfully, including an ordinary-symbol `Sheetfile` field. Installed files matched the ZIP; BOM/CPL/full report matched a new CLI reference byte for byte. Manufacturing data matched after creation-date fields only were normalized. See [VALIDATION.md](VALIDATION.md) for the exact ZIP SHA, counts and limits.
 
-Repository URL maintenance on the current branch keeps version 0.1.0 and exporter behavior unchanged. The published v0.1.0 tag, installation ZIP, source ZIP and SHA-256 assets retain their original bytes; their embedded historical URLs are not rewritten. This working-branch update is not a new package release or official KiCad acceptance.
+[GitHub Actions run 38708668214](https://github.com/pcbapartner/pcba-fabrication-toolkit/actions/runs/38708668214), at version-0.1.1 commit `c0e727113a23dcc9e54fc9458d9bec8c0a56acc2`, completed successfully on Ubuntu, Windows and macOS. Each job had **8 passes and 1 explicit skip because KiCad CLI was unavailable**. That is standard-library CI, not native KiCad or GUI validation on three platforms. Local macOS tests also passed 9/9, including native KiCad CLI.
+
+The changes and technical review were AI-assisted. No person's independent technical review or maintenance acceptance is represented as complete. A company person must actually review, understand and take responsibility for a future official submission and personally write its required commit/MR/comment text, following KiCad's applicable tool policy. No specific professional title or separately hired maintainer is asserted as an official requirement. [PUBLISHING.md](PUBLISHING.md) separates company GitHub release steps from official KiCad submission.
+
+The frozen v0.1.0 tag and installation/source assets remain unchanged. Source and issues: [pcbapartner/pcba-fabrication-toolkit](https://github.com/pcbapartner/pcba-fabrication-toolkit).
 
 ## Install
 
-From the KiCad project manager, open **Plugin and Content Manager → Install from File…** and select `dist/pcbapartner-fabrication-toolkit-0.1.0.zip`. Apply pending changes if shown. Reopen the PCB Editor, or refresh plugins using **Tools → External Plugins → Refresh Plugins**.
+For the verified local ZIP or a published release asset, open **Plugin and Content Manager → Install from File…** and select `dist/pcbapartner-fabrication-toolkit-0.1.1.zip`. Apply pending changes if shown. Reopen the PCB Editor, or refresh plugins using **Tools → External Plugins → Refresh Plugins**.
 
 Once an official repository submission has been accepted, users can also install by searching the package name in PCM. Official acceptance is a separate publication step.
 
@@ -36,13 +41,21 @@ Once an official repository submission has been accepted, users can also install
 
 Unsaved editor changes are excluded from exports. A board without a matching schematic still exports Gerbers and CPL, and the report states that the BOM is missing. An error in the basic pre-flight report does not prevent writing files for inspection; a failed CLI command does prevent publishing that export's partial files.
 
-### Command line / CI
+### Command line
 
 ```bash
 python3 plugins/pcbapartner_export.py path/to/board.kicad_pcb -o out/
 ```
 
 Set `KICAD_CLI=/full/path/to/kicad-cli` when it is not on your PATH. On macOS, the standard `/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli` is detected automatically. Python 3.9 or later is used for the validated command-line workflow. The CLI exits with 1 on an export failure, and 0 after exporting successfully even if the pre-flight report contains errors or warnings.
+
+### Regression tests
+
+```bash
+python -m unittest discover -s tests -p test_regressions.py -v
+```
+
+This suite uses only the standard library. Its native test is explicitly skipped when KiCad CLI is unavailable, unreadable or outside the declared 10.0 series. The three-OS CI workflow uses Python 3.12, read-only repository permission and pinned official actions. It installs no KiCad and publishes no packages.
 
 ## MPN and Manufacturer fields
 
