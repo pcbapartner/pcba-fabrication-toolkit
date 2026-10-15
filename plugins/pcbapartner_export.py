@@ -15,6 +15,7 @@ import csv
 import datetime
 import glob
 import io
+import json
 import os
 import re
 import shutil
@@ -103,6 +104,33 @@ def copper_layers(board_text):
     return ["F.Cu"] + inner + ["B.Cu"]
 
 
+def _sheet_files(source):
+    """Read Sheetfile only from a direct property of a hierarchical sheet.
+
+    Keep small list headers instead of building a complete schematic AST. A
+    symbol's ordinary custom field called Sheetfile must never be traversed.
+    """
+    stack = []
+    tokens = re.finditer(r'"(?:\\.|[^"\\])*"|[()]|[^\s()]+', source)
+    for match in tokens:
+        token = match.group()
+        if token == "(":
+            stack.append([])
+        elif token == ")":
+            if not stack:
+                continue
+            header = stack.pop()
+            if (len(header) >= 3 and header[0] == "property"
+                    and header[1].lower() == '"sheetfile"' and stack
+                    and stack[-1] and stack[-1][0] == "sheet"):
+                try:
+                    yield json.loads(header[2])
+                except (ValueError, TypeError) as exc:
+                    raise ExportError("Invalid hierarchical Sheetfile string") from exc
+        elif stack and len(stack[-1]) < 3:
+            stack[-1].append(token)
+
+
 def schematic_fields(schematic):
     """Inspect only this schematic and its referenced child sheets."""
     names = set()
@@ -115,7 +143,7 @@ def schematic_fields(schematic):
         with open(path, encoding="utf-8", errors="replace") as fh:
             source = fh.read()
         names.update(re.findall(r'\(property\s+"([^"]+)"', source))
-        for child in re.findall(r'\(property\s+"Sheetfile"\s+"([^"\\]+)"', source, re.I):
+        for child in _sheet_files(source):
             # KiCad resolves child sheets relative to their parent schematic.
             child = child.replace("${KIPRJMOD}", os.path.dirname(os.path.abspath(schematic)))
             pending.append(os.path.abspath(os.path.join(os.path.dirname(path), child)))
@@ -342,11 +370,27 @@ def run_export(board, out_dir=None):
         os.makedirs(target, exist_ok=True)
         with tempfile.TemporaryDirectory(prefix=".pcbapartner_", dir=target) as staging:
             res = _run_export(board, staging)
-            for key in ("zip", "cpl", "bom", "report"):
-                if res[key]:
-                    final_path = os.path.join(target, os.path.basename(res[key]))
-                    os.replace(res[key], final_path)
-                    res[key] = final_path
+            planned = [(key, res[key], os.path.join(target, os.path.basename(res[key])))
+                       for key in ("zip", "cpl", "bom", "report") if res[key]]
+            # Do not overwrite earlier exports if a name ever collides.
+            if any(os.path.lexists(final) for _, _, final in planned):
+                raise ExportError("Output name already exists; no files were published")
+            published = []
+            try:
+                for key, source, final in planned:
+                    os.replace(source, final)
+                    published.append(final)
+                    res[key] = final
+            except OSError as exc:
+                cleanup_failed = []
+                for final in reversed(published):
+                    try:
+                        os.remove(final)
+                    except OSError:
+                        cleanup_failed.append(os.path.basename(final))
+                detail = (" Files requiring manual cleanup: " + ", ".join(cleanup_failed)
+                          if cleanup_failed else " Partial output was removed.")
+                raise ExportError("Could not publish the complete export." + detail) from exc
             res["out_dir"] = target
             return res
     except OSError as exc:
