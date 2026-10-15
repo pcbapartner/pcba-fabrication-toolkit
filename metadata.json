@@ -28,6 +28,7 @@
     {
       "version": "0.1.0",
       "status": "testing",
+      "platforms": ["macos"],
       "kicad_version": "10.0",
       "kicad_version_max": "10.0",
       "runtime": "swig"
