@@ -24,7 +24,7 @@ import sys
 import tempfile
 import zipfile
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 # Candidate schematic field names, first match wins.
 MPN_FIELDS = ["MPN", "Manufacturer Part Number", "MFR PN", "MFG PN", "Mfr. No", "PartNumber", "Part Number", "MPN1"]
